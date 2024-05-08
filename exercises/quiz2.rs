@@ -20,8 +20,6 @@
 //
 // No hints this time!
 
-// I AM NOT DONE
-
 pub enum Command {
     Uppercase,
     Trim,
@@ -31,12 +29,29 @@ pub enum Command {
 mod my_module {
     use super::Command;
 
-    // TODO: Complete the function signature!
-    pub fn transformer(input: ???) -> ??? {
-        // TODO: Complete the output declaration!
-        let mut output: ??? = vec![];
+    /*
+    这段代码定义了一个函数 `transformer` ，
+    接受一个元组类型的 `Vec` 作为输入，
+    元组包含一个 `String` 和一个 `Command` 。
+    函数会根据 `Command` 的不同对 `String` 进行处理，
+    然后返回处理后的 `String` 组成的 `Vec` 。
+
+    1. 创建一个空的 `Vec` 类型的 `output` 用于存储处理后的 `String` 。
+    2. 遍历输入的 `Vec` ，对每个元组中的 `String` 和 `Command` 进行处理。
+    3. 根据 `Command` 的类型，分别对 `String` 进行不同的处理：
+        - 如果是 `Uppercase` 类型的 `Command` ，将 `String` 转换为大写并加入到 `output` 中。
+        - 如果是 `Trim` 类型的 `Command` ，将 `String` 去除空格并加入到 `output` 中。
+        - 如果是 `Append` 类型的 `Command` ，将 `String` 复制n次"bar"后拼接，并加入到 `output` 中。
+    4. 返回处理后的 `output` 。
+    */
+    pub fn transformer(input: Vec<(String, Command)>) -> Vec<String> {
+        let mut output: Vec<String> = vec![];
         for (string, command) in input.iter() {
-            // TODO: Complete the function body. You can do it!
+            match command {
+                Command::Uppercase => output.push(string.to_uppercase()),
+                Command::Trim => output.push(string.trim().to_string()),
+                Command::Append(n) => output.push(string.to_owned() + &"bar".repeat(*n)),
+            }
         }
         output
     }
@@ -45,7 +60,7 @@ mod my_module {
 #[cfg(test)]
 mod tests {
     // TODO: What do we need to import to have `transformer` in scope?
-    use ???;
+    use super::my_module::transformer;
     use super::Command;
 
     #[test]
